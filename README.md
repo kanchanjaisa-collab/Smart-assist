@@ -1,93 +1,105 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+<!DOCTYPE html>
+<html>
+<head>
+<title>Care Support Website</title>
 
-@Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [CommonModule, FormsModule],
-  template: `
+<style>
 
-  <h1 style="text-align:center;color:green;">Care Support Website</h1>
+body{
+font-family:Arial;
+text-align:center;
+background:#f2f2f2;
+}
 
-  <nav style="text-align:center;">
-    <button (click)="page='home'">Home</button>
-    <button (click)="page='contact'">Contact</button>
-    <button (click)="page='game'">Game</button>
-  </nav>
+h1{
+color:green;
+}
 
-  <div [ngSwitch]="page" style="text-align:center;margin-top:20px;">
+button{
+margin:10px;
+padding:10px 20px;
+background:green;
+color:white;
+border:none;
+border-radius:5px;
+cursor:pointer;
+}
 
-    <div *ngSwitchCase="'home'">
-      <h2>Welcome</h2>
-      <p>This website is for Blind, Disabled and Old Age people.</p>
-      <button (click)="speak()">🔊 Speak</button>
-    </div>
+.box{
+margin-top:20px;
+}
 
-    <div *ngSwitchCase="'contact'">
-      <h2>Emergency Contacts</h2>
-      <p>Doctor Number: {{ doctorNumber }}</p>
-      <p>Emergency Number: {{ emergencyNumber }}</p>
-      <p>Contact Number: {{ contactNumber }}</p>
-    </div>
+</style>
+</head>
 
-    <div *ngSwitchCase="'game'">
-      <h2>Guess Game</h2>
-      <p>Guess number between 1 to 5</p>
+<body>
 
-      <input type="number" [(ngModel)]="userGuess">
+<h1>Care Support Website</h1>
 
-      <button (click)="check()">Check</button>
+<button onclick="showHome()">Home</button>
+<button onclick="showContact()">Contact</button>
+<button onclick="showGame()">Game</button>
 
-      <p>{{ message }}</p>
-    </div>
+<div id="content" class="box"></div>
 
-  </div>
+<script>
 
-  `,
-  styles: [`
-    button{
-      margin:10px;
-      padding:10px 20px;
-      background:green;
-      color:white;
-      border:none;
-      border-radius:5px;
-      cursor:pointer;
-    }
+function showHome(){
+document.getElementById("content").innerHTML=
+`
+<h2>Welcome</h2>
+<p>This website is for Blind, Disabled and Old Age people.</p>
+<button onclick="speak()">🔊 Speak</button>
+`;
+}
 
-    input{
-      padding:8px;
-      margin:10px;
-    }
-  `]
-})
+function showContact(){
+document.getElementById("content").innerHTML=
+`
+<h2>Emergency Contacts</h2>
+<p>Doctor Number: 9876543210</p>
+<p>Emergency Number: 108</p>
+<p>Contact Number: 9999999999</p>
+`;
+}
 
-export class AppComponent {
+let randomNumber = Math.floor(Math.random()*5)+1;
 
-  page = 'home';
+function showGame(){
+document.getElementById("content").innerHTML=
+`
+<h2>Guess Game</h2>
+<p>Guess number between 1 to 5</p>
 
-  doctorNumber = '9876543210';
-  emergencyNumber = '108';
-  contactNumber = '9999999999';
+<input id="guess" type="number">
 
-  randomNumber = Math.floor(Math.random() * 5) + 1;
-  userGuess: number = 0;
-  message = '';
+<button onclick="check()">Check</button>
 
-  speak() {
-    const speech = new SpeechSynthesisUtterance(
-      'Welcome to Care Support Website'
-    );
-    window.speechSynthesis.speak(speech);
-  }
+<p id="result"></p>
+`;
+}
 
-  check() {
-    if (this.userGuess === this.randomNumber) {
-      this.message = 'Correct!';
-    } else {
-      this.message = 'Try Again!';
-    }
-  }
+function speak(){
+const speech = new SpeechSynthesisUtterance(
+"Welcome to Care Support Website"
+);
+speechSynthesis.speak(speech);
+}
+
+function check(){
+
+let guess = document.getElementById("guess").value;
+
+if(guess == randomNumber)
+document.getElementById("result").innerHTML="Correct!";
+else
+document.getElementById("result").innerHTML="Try Again!";
 
 }
+
+showHome();
+
+</script>
+
+</body>
+</html>
