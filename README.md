@@ -1,5 +1,5 @@
-<!DOCTYPE html>
 <html>
+
 <head>
 <title>Care Support Website</title>
 
@@ -29,7 +29,13 @@ cursor:pointer;
 margin-top:20px;
 }
 
+input{
+padding:8px;
+margin:10px;
+}
+
 </style>
+
 </head>
 
 <body>
@@ -57,9 +63,15 @@ function showContact(){
 document.getElementById("content").innerHTML=
 `
 <h2>Emergency Contacts</h2>
+
 <p>Doctor Number: 9876543210</p>
+<button onclick="callDoctor()">Call Doctor</button>
+
 <p>Emergency Number: 108</p>
-<p>Contact Number: 9999999999</p>
+<button onclick="callEmergency()">Call Emergency</button>
+
+<p>Family Number: 9321748593</p>
+<button onclick="callFamily()">Call Family</button>
 `;
 }
 
@@ -97,9 +109,22 @@ document.getElementById("result").innerHTML="Try Again!";
 
 }
 
+function callDoctor(){
+window.location.href="tel:9876543210";
+}
+
+function callEmergency(){
+window.location.href="tel:108";
+}
+
+function callFamily(){
+window.location.href="tel:9321748593";
+}
+
 showHome();
 
 </script>
 
 </body>
+
 </html>
